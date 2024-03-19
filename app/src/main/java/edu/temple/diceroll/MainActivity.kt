@@ -2,6 +2,7 @@ package edu.temple.diceroll
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -11,8 +12,14 @@ class MainActivity : AppCompatActivity() {
 
         // Fragment created using factory method and added dynamically using fragmentTransaction
         // argument is the number of sides the die will have
-        supportFragmentManager.beginTransaction()
-            .add(R.id.diceFragmentContainer, DiceFragment.newInstance(6))
-            .commit()
+        if (savedInstanceState == null)
+            supportFragmentManager.beginTransaction()
+                .add(R.id.diceFragmentContainer, DiceFragment.newInstance(6))
+                .addToBackStack(null)
+                .setReorderingAllowed(true)
+                .commit()
+
+
+
     }
 }

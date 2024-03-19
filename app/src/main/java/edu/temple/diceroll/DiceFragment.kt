@@ -14,10 +14,26 @@ const val DIE_SIDES = "dIcE_SiDeS"
 class DiceFragment : Fragment() {
     private var sides: Int? = null
 
+    private var currentDice: String? = null
+    private var TextView   :TextView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             sides = it.getInt(DIE_SIDES)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(currentDice,TextView?.text.toString())
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        savedInstanceState?.run {
+            val newNum = getString(currentDice)
+            TextView?.text = newNum ?: "0"
         }
     }
 
@@ -28,11 +44,15 @@ class DiceFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_dice, container, false).apply {
 
             val numberDisplayTextView = findViewById<TextView>(R.id.numberDisplay)
+            TextView = numberDisplayTextView
             findViewById<Button>(R.id.rollButton).setOnClickListener {
                 numberDisplayTextView.text = (Random.nextInt(sides!!) + 1).toString()
             }
         }
     }
+
+
+
 
     companion object {
 
