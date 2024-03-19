@@ -10,11 +10,10 @@ import android.widget.TextView
 import kotlin.random.Random
 
 const val DIE_SIDES = "dIcE_SiDeS"
-
+const val currentDice: String = "current Dice"
 class DiceFragment : Fragment() {
     private var sides: Int? = null
 
-    private var currentDice: String? = null
     private var TextView   :TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
